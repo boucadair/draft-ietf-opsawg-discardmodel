@@ -288,7 +288,260 @@ Table of Contents
 
    The following YANG tree diagram shows the complete structure:
 
-   ../yang/ietf-packet-discard-reporting-tree.txt
+   module: ietf-packet-discard-reporting
+
+     structure packet-discard-reporting:
+       +-- control-plane {control-plane-stats}?
+       |  +-- direction?   identityref
+       |  +-- traffic
+       |  |  +-- packets?   uint32
+       |  |  +-- bytes?     uint32
+       |  +-- discards
+       |     +-- packets?   uint32
+       |     +-- bytes?     uint32
+       |     +-- policy
+       |        +-- packets?   uint32
+       +-- interface* [name] {per-interface-stats}?
+       |  +-- name         string
+       |  +-- direction?   identityref
+       |  +-- traffic
+       |  |  +-- l2
+       |  |  |  +-- frames?   uint64
+       |  |  |  +-- bytes?    uint64
+       |  |  +-- l3
+       |  |  |  +-- address-family-stat* [address-family]
+       |  |  |     +-- address-family    identityref
+       |  |  |     +-- packets?          uint64
+       |  |  |     +-- bytes?            uint64
+       |  |  |     +-- unicast
+       |  |  |     |  +-- packets?   uint64
+       |  |  |     |  +-- bytes?     uint64
+       |  |  |     +-- multicast
+       |  |  |        +-- packets?   uint64
+       |  |  |        +-- bytes?     uint64
+       |  |  +-- qos
+       |  |     +-- class* [id]
+       |  |        +-- id         string
+       |  |        +-- packets?   uint64
+       |  |        +-- bytes?     uint64
+       |  +-- discards
+       |     +-- l2
+       |     |  +-- frames?   uint64
+       |     |  +-- bytes?    uint64
+       |     +-- l3
+       |     |  +-- address-family-stat* [address-family]
+       |     |     +-- address-family    identityref
+       |     |     +-- packets?          uint64
+       |     |     +-- bytes?            uint64
+       |     |     +-- unicast
+       |     |     |  +-- packets?   uint64
+       |     |     |  +-- bytes?     uint64
+       |     |     +-- multicast
+       |     |        +-- packets?   uint64
+       |     |        +-- bytes?     uint64
+       |     +-- errors
+       |     |  +-- l2
+       |     |  |  +-- rx
+       |     |  |  |  +-- frames?          uint32
+       |     |  |  |  +-- crc-error?       uint32
+       |     |  |  |  +-- invalid-mac?     uint32
+       |     |  |  |  +-- invalid-vlan?    uint32
+       |     |  |  |  +-- invalid-frame?   uint32
+       |     |  |  +-- tx
+       |     |  |     +-- frames?   uint32
+       |     |  +-- l3
+       |     |  |  +-- rx
+       |     |  |  |  +-- packets?          uint32
+       |     |  |  |  +-- checksum-error?   uint32
+       |     |  |  |  +-- mtu-exceeded?     uint32
+       |     |  |  |  +-- invalid-packet?   uint32
+       |     |  |  +-- ttl-expired?     uint32
+       |     |  |  +-- no-route?        uint32
+       |     |  |  +-- invalid-sid?     uint32
+       |     |  |  +-- invalid-label?   uint32
+       |     |  |  +-- tx
+       |     |  |     +-- packets?   uint32
+       |     |  +-- internal
+       |     |     +-- packets?        uint32
+       |     |     +-- parity-error?   uint32
+       |     +-- policy
+       |     |  +-- l2
+       |     |  |  +-- frames?   uint32
+       |     |  |  +-- acl?      uint32
+       |     |  +-- l3
+       |     |     +-- packets?      uint32
+       |     |     +-- acl?          uint32
+       |     |     +-- policer
+       |     |     |  +-- packets?   uint32
+       |     |     |  +-- bytes?     uint32
+       |     |     +-- null-route?   uint32
+       |     |     +-- rpf?          uint32
+       |     |     +-- ddos?         uint32
+       |     +-- no-buffer
+       |        +-- class* [id]
+       |           +-- id         string
+       |           +-- packets?   uint64
+       |           +-- bytes?     uint64
+       +-- flow {flow-reporting}?
+       |  +-- direction?   identityref
+       |  +-- traffic
+       |  |  +-- l2
+       |  |  |  +-- frames?   uint64
+       |  |  |  +-- bytes?    uint64
+       |  |  +-- l3
+       |  |  |  +-- address-family-stat* [address-family]
+       |  |  |     +-- address-family    identityref
+       |  |  |     +-- packets?          uint64
+       |  |  |     +-- bytes?            uint64
+       |  |  |     +-- unicast
+       |  |  |     |  +-- packets?   uint64
+       |  |  |     |  +-- bytes?     uint64
+       |  |  |     +-- multicast
+       |  |  |        +-- packets?   uint64
+       |  |  |        +-- bytes?     uint64
+       |  |  +-- qos
+       |  |     +-- class* [id]
+       |  |        +-- id         string
+       |  |        +-- packets?   uint64
+       |  |        +-- bytes?     uint64
+       |  +-- discards
+       |     +-- l2
+       |     |  +-- frames?   uint64
+       |     |  +-- bytes?    uint64
+       |     +-- l3
+       |     |  +-- address-family-stat* [address-family]
+       |     |     +-- address-family    identityref
+       |     |     +-- packets?          uint64
+       |     |     +-- bytes?            uint64
+       |     |     +-- unicast
+       |     |     |  +-- packets?   uint64
+       |     |     |  +-- bytes?     uint64
+       |     |     +-- multicast
+       |     |        +-- packets?   uint64
+       |     |        +-- bytes?     uint64
+       |     +-- errors
+       |     |  +-- l2
+       |     |  |  +-- rx
+       |     |  |  |  +-- frames?          uint32
+       |     |  |  |  +-- crc-error?       uint32
+       |     |  |  |  +-- invalid-mac?     uint32
+       |     |  |  |  +-- invalid-vlan?    uint32
+       |     |  |  |  +-- invalid-frame?   uint32
+       |     |  |  +-- tx
+       |     |  |     +-- frames?   uint32
+       |     |  +-- l3
+       |     |  |  +-- rx
+       |     |  |  |  +-- packets?          uint32
+       |     |  |  |  +-- checksum-error?   uint32
+       |     |  |  |  +-- mtu-exceeded?     uint32
+       |     |  |  |  +-- invalid-packet?   uint32
+       |     |  |  +-- ttl-expired?     uint32
+       |     |  |  +-- no-route?        uint32
+       |     |  |  +-- invalid-sid?     uint32
+       |     |  |  +-- invalid-label?   uint32
+       |     |  |  +-- tx
+       |     |  |     +-- packets?   uint32
+       |     |  +-- internal
+       |     |     +-- packets?        uint32
+       |     |     +-- parity-error?   uint32
+       |     +-- policy
+       |     |  +-- l2
+       |     |  |  +-- frames?   uint32
+       |     |  |  +-- acl?      uint32
+       |     |  +-- l3
+       |     |     +-- packets?      uint32
+       |     |     +-- acl?          uint32
+       |     |     +-- policer
+       |     |     |  +-- packets?   uint32
+       |     |     |  +-- bytes?     uint32
+       |     |     +-- null-route?   uint32
+       |     |     +-- rpf?          uint32
+       |     |     +-- ddos?         uint32
+       |     +-- no-buffer
+       |        +-- class* [id]
+       |           +-- id         string
+       |           +-- packets?   uint64
+       |           +-- bytes?     uint64
+       +-- device {per-device-stats}?
+          +-- direction?   empty
+          +-- traffic
+          |  +-- l2
+          |  |  +-- frames?   uint64
+          |  |  +-- bytes?    uint64
+          |  +-- l3
+          |  |  +-- address-family-stat* [address-family]
+          |  |     +-- address-family    identityref
+          |  |     +-- packets?          uint64
+          |  |     +-- bytes?            uint64
+          |  |     +-- unicast
+          |  |     |  +-- packets?   uint64
+          |  |     |  +-- bytes?     uint64
+          |  |     +-- multicast
+          |  |        +-- packets?   uint64
+          |  |        +-- bytes?     uint64
+          |  +-- qos
+          |     +-- class* [id]
+          |        +-- id         string
+          |        +-- packets?   uint64
+          |        +-- bytes?     uint64
+          +-- discards
+             +-- l2
+             |  +-- frames?   uint64
+             |  +-- bytes?    uint64
+             +-- l3
+             |  +-- address-family-stat* [address-family]
+             |     +-- address-family    identityref
+             |     +-- packets?          uint64
+             |     +-- bytes?            uint64
+             |     +-- unicast
+             |     |  +-- packets?   uint64
+             |     |  +-- bytes?     uint64
+             |     +-- multicast
+             |        +-- packets?   uint64
+             |        +-- bytes?     uint64
+             +-- errors
+             |  +-- l2
+             |  |  +-- rx
+             |  |  |  +-- frames?          uint32
+             |  |  |  +-- crc-error?       uint32
+             |  |  |  +-- invalid-mac?     uint32
+             |  |  |  +-- invalid-vlan?    uint32
+             |  |  |  +-- invalid-frame?   uint32
+             |  |  +-- tx
+             |  |     +-- frames?   uint32
+             |  +-- l3
+             |  |  +-- rx
+             |  |  |  +-- packets?          uint32
+             |  |  |  +-- checksum-error?   uint32
+             |  |  |  +-- mtu-exceeded?     uint32
+             |  |  |  +-- invalid-packet?   uint32
+             |  |  +-- ttl-expired?     uint32
+             |  |  +-- no-route?        uint32
+             |  |  +-- invalid-sid?     uint32
+             |  |  +-- invalid-label?   uint32
+             |  |  +-- tx
+             |  |     +-- packets?   uint32
+             |  +-- internal
+             |     +-- packets?        uint32
+             |     +-- parity-error?   uint32
+             +-- policy
+             |  +-- l2
+             |  |  +-- frames?   uint32
+             |  |  +-- acl?      uint32
+             |  +-- l3
+             |     +-- packets?      uint32
+             |     +-- acl?          uint32
+             |     +-- policer
+             |     |  +-- packets?   uint32
+             |     |  +-- bytes?     uint32
+             |     +-- null-route?   uint32
+             |     +-- rpf?          uint32
+             |     +-- ddos?         uint32
+             +-- no-buffer
+                +-- class* [id]
+                   +-- id         string
+                   +-- packets?   uint64
+                   +-- bytes?     uint64
 
    The corresponding YANG module is defined in Appendix A.
 
@@ -353,7 +606,260 @@ Table of Contents
    hierarchy represented by corresponding YANG containers and leaves.
    The following YANG tree diagram shows the complete structure:
 
-   ../yang/ietf-packet-discard-reporting-tree.txt
+   module: ietf-packet-discard-reporting
+
+     structure packet-discard-reporting:
+       +-- control-plane {control-plane-stats}?
+       |  +-- direction?   identityref
+       |  +-- traffic
+       |  |  +-- packets?   uint32
+       |  |  +-- bytes?     uint32
+       |  +-- discards
+       |     +-- packets?   uint32
+       |     +-- bytes?     uint32
+       |     +-- policy
+       |        +-- packets?   uint32
+       +-- interface* [name] {per-interface-stats}?
+       |  +-- name         string
+       |  +-- direction?   identityref
+       |  +-- traffic
+       |  |  +-- l2
+       |  |  |  +-- frames?   uint64
+       |  |  |  +-- bytes?    uint64
+       |  |  +-- l3
+       |  |  |  +-- address-family-stat* [address-family]
+       |  |  |     +-- address-family    identityref
+       |  |  |     +-- packets?          uint64
+       |  |  |     +-- bytes?            uint64
+       |  |  |     +-- unicast
+       |  |  |     |  +-- packets?   uint64
+       |  |  |     |  +-- bytes?     uint64
+       |  |  |     +-- multicast
+       |  |  |        +-- packets?   uint64
+       |  |  |        +-- bytes?     uint64
+       |  |  +-- qos
+       |  |     +-- class* [id]
+       |  |        +-- id         string
+       |  |        +-- packets?   uint64
+       |  |        +-- bytes?     uint64
+       |  +-- discards
+       |     +-- l2
+       |     |  +-- frames?   uint64
+       |     |  +-- bytes?    uint64
+       |     +-- l3
+       |     |  +-- address-family-stat* [address-family]
+       |     |     +-- address-family    identityref
+       |     |     +-- packets?          uint64
+       |     |     +-- bytes?            uint64
+       |     |     +-- unicast
+       |     |     |  +-- packets?   uint64
+       |     |     |  +-- bytes?     uint64
+       |     |     +-- multicast
+       |     |        +-- packets?   uint64
+       |     |        +-- bytes?     uint64
+       |     +-- errors
+       |     |  +-- l2
+       |     |  |  +-- rx
+       |     |  |  |  +-- frames?          uint32
+       |     |  |  |  +-- crc-error?       uint32
+       |     |  |  |  +-- invalid-mac?     uint32
+       |     |  |  |  +-- invalid-vlan?    uint32
+       |     |  |  |  +-- invalid-frame?   uint32
+       |     |  |  +-- tx
+       |     |  |     +-- frames?   uint32
+       |     |  +-- l3
+       |     |  |  +-- rx
+       |     |  |  |  +-- packets?          uint32
+       |     |  |  |  +-- checksum-error?   uint32
+       |     |  |  |  +-- mtu-exceeded?     uint32
+       |     |  |  |  +-- invalid-packet?   uint32
+       |     |  |  +-- ttl-expired?     uint32
+       |     |  |  +-- no-route?        uint32
+       |     |  |  +-- invalid-sid?     uint32
+       |     |  |  +-- invalid-label?   uint32
+       |     |  |  +-- tx
+       |     |  |     +-- packets?   uint32
+       |     |  +-- internal
+       |     |     +-- packets?        uint32
+       |     |     +-- parity-error?   uint32
+       |     +-- policy
+       |     |  +-- l2
+       |     |  |  +-- frames?   uint32
+       |     |  |  +-- acl?      uint32
+       |     |  +-- l3
+       |     |     +-- packets?      uint32
+       |     |     +-- acl?          uint32
+       |     |     +-- policer
+       |     |     |  +-- packets?   uint32
+       |     |     |  +-- bytes?     uint32
+       |     |     +-- null-route?   uint32
+       |     |     +-- rpf?          uint32
+       |     |     +-- ddos?         uint32
+       |     +-- no-buffer
+       |        +-- class* [id]
+       |           +-- id         string
+       |           +-- packets?   uint64
+       |           +-- bytes?     uint64
+       +-- flow {flow-reporting}?
+       |  +-- direction?   identityref
+       |  +-- traffic
+       |  |  +-- l2
+       |  |  |  +-- frames?   uint64
+       |  |  |  +-- bytes?    uint64
+       |  |  +-- l3
+       |  |  |  +-- address-family-stat* [address-family]
+       |  |  |     +-- address-family    identityref
+       |  |  |     +-- packets?          uint64
+       |  |  |     +-- bytes?            uint64
+       |  |  |     +-- unicast
+       |  |  |     |  +-- packets?   uint64
+       |  |  |     |  +-- bytes?     uint64
+       |  |  |     +-- multicast
+       |  |  |        +-- packets?   uint64
+       |  |  |        +-- bytes?     uint64
+       |  |  +-- qos
+       |  |     +-- class* [id]
+       |  |        +-- id         string
+       |  |        +-- packets?   uint64
+       |  |        +-- bytes?     uint64
+       |  +-- discards
+       |     +-- l2
+       |     |  +-- frames?   uint64
+       |     |  +-- bytes?    uint64
+       |     +-- l3
+       |     |  +-- address-family-stat* [address-family]
+       |     |     +-- address-family    identityref
+       |     |     +-- packets?          uint64
+       |     |     +-- bytes?            uint64
+       |     |     +-- unicast
+       |     |     |  +-- packets?   uint64
+       |     |     |  +-- bytes?     uint64
+       |     |     +-- multicast
+       |     |        +-- packets?   uint64
+       |     |        +-- bytes?     uint64
+       |     +-- errors
+       |     |  +-- l2
+       |     |  |  +-- rx
+       |     |  |  |  +-- frames?          uint32
+       |     |  |  |  +-- crc-error?       uint32
+       |     |  |  |  +-- invalid-mac?     uint32
+       |     |  |  |  +-- invalid-vlan?    uint32
+       |     |  |  |  +-- invalid-frame?   uint32
+       |     |  |  +-- tx
+       |     |  |     +-- frames?   uint32
+       |     |  +-- l3
+       |     |  |  +-- rx
+       |     |  |  |  +-- packets?          uint32
+       |     |  |  |  +-- checksum-error?   uint32
+       |     |  |  |  +-- mtu-exceeded?     uint32
+       |     |  |  |  +-- invalid-packet?   uint32
+       |     |  |  +-- ttl-expired?     uint32
+       |     |  |  +-- no-route?        uint32
+       |     |  |  +-- invalid-sid?     uint32
+       |     |  |  +-- invalid-label?   uint32
+       |     |  |  +-- tx
+       |     |  |     +-- packets?   uint32
+       |     |  +-- internal
+       |     |     +-- packets?        uint32
+       |     |     +-- parity-error?   uint32
+       |     +-- policy
+       |     |  +-- l2
+       |     |  |  +-- frames?   uint32
+       |     |  |  +-- acl?      uint32
+       |     |  +-- l3
+       |     |     +-- packets?      uint32
+       |     |     +-- acl?          uint32
+       |     |     +-- policer
+       |     |     |  +-- packets?   uint32
+       |     |     |  +-- bytes?     uint32
+       |     |     +-- null-route?   uint32
+       |     |     +-- rpf?          uint32
+       |     |     +-- ddos?         uint32
+       |     +-- no-buffer
+       |        +-- class* [id]
+       |           +-- id         string
+       |           +-- packets?   uint64
+       |           +-- bytes?     uint64
+       +-- device {per-device-stats}?
+          +-- direction?   empty
+          +-- traffic
+          |  +-- l2
+          |  |  +-- frames?   uint64
+          |  |  +-- bytes?    uint64
+          |  +-- l3
+          |  |  +-- address-family-stat* [address-family]
+          |  |     +-- address-family    identityref
+          |  |     +-- packets?          uint64
+          |  |     +-- bytes?            uint64
+          |  |     +-- unicast
+          |  |     |  +-- packets?   uint64
+          |  |     |  +-- bytes?     uint64
+          |  |     +-- multicast
+          |  |        +-- packets?   uint64
+          |  |        +-- bytes?     uint64
+          |  +-- qos
+          |     +-- class* [id]
+          |        +-- id         string
+          |        +-- packets?   uint64
+          |        +-- bytes?     uint64
+          +-- discards
+             +-- l2
+             |  +-- frames?   uint64
+             |  +-- bytes?    uint64
+             +-- l3
+             |  +-- address-family-stat* [address-family]
+             |     +-- address-family    identityref
+             |     +-- packets?          uint64
+             |     +-- bytes?            uint64
+             |     +-- unicast
+             |     |  +-- packets?   uint64
+             |     |  +-- bytes?     uint64
+             |     +-- multicast
+             |        +-- packets?   uint64
+             |        +-- bytes?     uint64
+             +-- errors
+             |  +-- l2
+             |  |  +-- rx
+             |  |  |  +-- frames?          uint32
+             |  |  |  +-- crc-error?       uint32
+             |  |  |  +-- invalid-mac?     uint32
+             |  |  |  +-- invalid-vlan?    uint32
+             |  |  |  +-- invalid-frame?   uint32
+             |  |  +-- tx
+             |  |     +-- frames?   uint32
+             |  +-- l3
+             |  |  +-- rx
+             |  |  |  +-- packets?          uint32
+             |  |  |  +-- checksum-error?   uint32
+             |  |  |  +-- mtu-exceeded?     uint32
+             |  |  |  +-- invalid-packet?   uint32
+             |  |  +-- ttl-expired?     uint32
+             |  |  +-- no-route?        uint32
+             |  |  +-- invalid-sid?     uint32
+             |  |  +-- invalid-label?   uint32
+             |  |  +-- tx
+             |  |     +-- packets?   uint32
+             |  +-- internal
+             |     +-- packets?        uint32
+             |     +-- parity-error?   uint32
+             +-- policy
+             |  +-- l2
+             |  |  +-- frames?   uint32
+             |  |  +-- acl?      uint32
+             |  +-- l3
+             |     +-- packets?      uint32
+             |     +-- acl?          uint32
+             |     +-- policer
+             |     |  +-- packets?   uint32
+             |     |  +-- bytes?     uint32
+             |     +-- null-route?   uint32
+             |     +-- rpf?          uint32
+             |     +-- ddos?         uint32
+             +-- no-buffer
+                +-- class* [id]
+                   +-- id         string
+                   +-- packets?   uint64
+                   +-- bytes?     uint64
 
 5.2.  Implementation Requirements
 
@@ -463,6 +969,8 @@ Table of Contents
    in [RFC8791].
 
    <CODE BEGINS> file "ietf-packet-discard-reporting@2024-06-04.yang"
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
    module ietf-packet-discard-reporting {
      yang-version 1.1;
      namespace
@@ -762,7 +1270,8 @@ Table of Contents
          leaf frames {
            type uint32;
            description
-             "The number of frames discarded due to errors with the received frame.";
+             "The number of frames discarded due to errors with the \
+                                                       received frame.";
          }
          leaf crc-error {
            type uint32;
@@ -772,17 +1281,20 @@ Table of Contents
          leaf invalid-mac {
            type uint32;
            description
-             "The number of frames discarded due to an invalid MAC address.";
+             "The number of frames discarded due to an invalid MAC \
+                                                              address.";
          }
          leaf invalid-vlan {
            type uint32;
            description
-             "The number of frames discarded due to an invalid VLAN tag.";
+             "The number of frames discarded due to an invalid VLAN tag\
+                                                                     .";
          }
          leaf invalid-frame {
            type uint32;
            description
-             "The number of invalid frames discarded due to other reasons, not limited to: malformed frames, frame-size violations.";
+             "The number of invalid frames discarded due to other \
+     reasons, not limited to: malformed frames, frame-size violations.";
          }
        }
      }
@@ -797,43 +1309,53 @@ Table of Contents
          leaf packets {
            type uint32;
            description
-             "The number of Layer 3 packets discarded due to errors in the received packet.";
+             "The number of Layer 3 packets discarded due to errors in \
+                                                  the received packet.";
          }
          leaf checksum-error {
            type uint32;
            description
-             "The number of received packets discarded due to a checksum error.";
+             "The number of received packets discarded due to a \
+                                                       checksum error.";
          }
          leaf mtu-exceeded {
            type uint32;
            description
-             "The number of received packets discarded due to MTU exceeded.";
+             "The number of received packets discarded due to MTU \
+                                                             exceeded.";
          }
          leaf invalid-packet {
            type uint32;
            description
-             "The number of invalid packets discarded due to other reasons, not limited to: invalid packet length, invalid header fields, invalid options, invalid protocol version, invalid flags or control bits, malformed packets.";
+             "The number of invalid packets discarded due to other \
+   reasons, not limited to: invalid packet length, invalid header \
+   fields, invalid options, invalid protocol version, invalid flags or \
+                                      control bits, malformed packets.";
          }
        }
        leaf ttl-expired {
          type uint32;
          description
-           "The number of received packets discarded due to expired TTL.";
+           "The number of received packets discarded due to expired TTL\
+                                                                     .";
        }
        leaf no-route {
          type uint32;
          description
-           "The number of packets discarded due to not matching a valid route.";
+           "The number of packets discarded due to not matching a \
+                                                          valid route.";
        }
        leaf invalid-sid {
          type uint32;
          description
-           "The number of packets discarded due to an invalid Segment Routing (SR) SID.";
+           "The number of packets discarded due to an invalid Segment \
+                                                     Routing (SR) SID.";
        }
        leaf invalid-label {
          type uint32;
          description
-           "The number of packets discarded due to an invalid MPLS label.";
+           "The number of packets discarded due to an invalid MPLS \
+                                                                label.";
        }
      }
 
@@ -862,7 +1384,8 @@ Table of Contents
          leaf frames {
            type uint32;
            description
-             "The number of Layer 2 frames discarded due to errors when transmitting.";
+             "The number of Layer 2 frames discarded due to errors \
+                                                    when transmitting.";
          }
        }
      }
@@ -877,7 +1400,8 @@ Table of Contents
          leaf packets {
            type uint32;
            description
-             "The number of Layer 3 packets discarded due to errors when transmitting.";
+             "The number of Layer 3 packets discarded due to errors \
+                                                    when transmitting.";
          }
        }
      }
@@ -934,23 +1458,27 @@ Table of Contents
        }
        container policer {
          description
-           "The number of packets discarded due ingress policer violations.";
+           "The number of packets discarded due ingress policer \
+                                                           violations.";
          uses basic-packets-bytes-32;
        }
        leaf null-route {
          type uint32;
          description
-           "The number of packets discarded due to matching a null route.";
+           "The number of packets discarded due to matching a null \
+                                                                route.";
        }
        leaf rpf {
          type uint32;
          description
-           "The number of packets discarded due to failing Reverse Path Forwarding (RPF) check.";
+           "The number of packets discarded due to failing Reverse \
+                                          Path Forwarding (RPF) check.";
        }
        leaf ddos {
          type uint32;
          description
-           "The number of packets discarded due to DDoS protection policies.";
+           "The number of packets discarded due to DDoS protection \
+                                                             policies.";
        }
      }
 
@@ -1051,7 +1579,8 @@ Table of Contents
       */
      sx:structure packet-discard-reporting {
        description
-         "Specifies the abstract structure of packet discard reporting data.";
+         "Specifies the abstract structure of packet discard reporting \
+                                                                 data.";
        container control-plane {
          if-feature "control-plane-stats";
          description
@@ -1069,7 +1598,8 @@ Table of Contents
          if-feature "per-interface-stats";
          key "name";
          description
-           "Indicates a list of interfaces for which packet discard reporting data is provided.";
+           "Indicates a list of interfaces for which packet discard \
+                                           reporting data is provided.";
          leaf name {
            type string;
            description
