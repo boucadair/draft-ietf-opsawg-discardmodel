@@ -7,7 +7,7 @@ category: std
 
 ipr: trust200902
 area: Operations and Management Area
-workgroup: OPSAWG 
+workgroup: OPSAWG
 keyword:
  - Service deployment
  - Service assurance
@@ -26,8 +26,8 @@ author:
     city: London
     code: EC2A 2FA
     country: UK
-    email: jevanamz@amazon.co.uk      
-    
+    email: jevanamz@amazon.co.uk
+
  -
     ins: O. Pylypenko
     name: Oleksandr Pylypenko
@@ -38,7 +38,7 @@ author:
     code: 98109
     country: US
     email: opyl@amazon.com
-    
+
  -
     ins: J. Haas
     name: Jeffrey Haas
@@ -107,7 +107,7 @@ informative:
      RFC6242:
      RFC8446:
      RFC8341:
-     
+
 --- abstract
 
 This document defines an information model and corresponding data model for packet discard reporting. The information model provides an implementation-independent framework for classifying packet loss to enable automated network mitigation of unintended packet loss.  The data model specifies a YANG implementation of this framework for network elements.
@@ -198,7 +198,9 @@ The hierarchical structure allows for future extension while maintaining backwar
 
 The following YANG tree diagram shows the complete structure:
 
-../yang/ietf-packet-discard-reporting-tree.txt
+~~~~
+{::include-fold ../yang/ietf-packet-discard-reporting-tree.txt}
+~~~~
 
 The corresponding YANG module is defined in {{module-infomodel}}.
 
@@ -241,9 +243,9 @@ This data model implements the information model defined in {{infomodel}} for th
 
 Their is a direct mapping between the information model components and their data model implementations, with each component in the hierarchy represented by corresponding YANG containers and leaves.  The following YANG tree diagram shows the complete structure:
 
-
-../yang/ietf-packet-discard-reporting-tree.txt
-
+~~~~
+{::include-fold ./yang/ietf-packet-discard-reporting-tree.txt}
+~~~~
 
 ## Implementation Requirements {#requirements}
 
@@ -268,28 +270,28 @@ Requirements 1-10 relate to packets forwarded or discarded by the device, while 
 
 If all of the requirements are met, a "good" unicast IPv4 packet received would increment:
 
-- interface/ingress/traffic/l3/v4/unicast/packets  
-- interface/ingress/traffic/l3/v4/unicast/bytes  
-- interface/ingress/traffic/qos/class_0/packets  
-- interface/ingress/traffic/qos/class_0/bytes  
+- interface/ingress/traffic/l3/v4/unicast/packets
+- interface/ingress/traffic/l3/v4/unicast/bytes
+- interface/ingress/traffic/qos/class_0/packets
+- interface/ingress/traffic/qos/class_0/bytes
 
 A received unicast IPv6 packet discarded due to Hop Limit expiry would increment:
 
-- interface/ingress/discards/l3/v6/unicast/packets  
-- interface/ingress/discards/l3/v6/unicast/bytes  
-- interface/ingress/discards/l3/rx/ttl-expired/packets  
+- interface/ingress/discards/l3/v6/unicast/packets
+- interface/ingress/discards/l3/v6/unicast/bytes
+- interface/ingress/discards/l3/rx/ttl-expired/packets
 
 An IPv4 packet discarded on egress due to no buffers would increment:
 
-- interface/egress/discards/l3/v4/unicast/packets  
-- interface/egress/discards/l3/v4/unicast/bytes  
-- interface/egress/discards/no-buffer/class_0/packets  
+- interface/egress/discards/l3/v4/unicast/packets
+- interface/egress/discards/l3/v4/unicast/bytes
+- interface/egress/discards/no-buffer/class_0/packets
 - interface/egress/discards/no-buffer/class_0/bytes
 
 A multicast IPv6 packet dropped due to RPF check failure would increment:
 
 - interface/ingress/discards/l3/v6/multicast/packets
-- interface/ingress/discards/l3/v6/multicast/bytes  
+- interface/ingress/discards/l3/v6/multicast/bytes
 - interface/ingress/discards/policy/l3/rpf/packets
 
 
@@ -300,7 +302,7 @@ The "ietf-packet-discard-reporting" uses the "sx" structure defined in {{!RFC879
 
 ~~~~~~~~~~
 <CODE BEGINS> file "ietf-packet-discard-reporting@2024-06-04.yang"
-{::include ./yang/ietf-packet-discard-reporting.yang}
+{::include-fold ./yang/ietf-packet-discard-reporting.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 
