@@ -2,7 +2,7 @@
 
 
 
-OPSAWG                                                          J. Evans
+Operations and Management Area Working Group                    J. Evans
 Internet-Draft                                              O. Pylypenko
 Intended status: Standards Track                                  Amazon
 Expires: 21 July 2025                                            J. Haas
@@ -25,6 +25,17 @@ Abstract
    to enable automated network mitigation of unintended packet loss.
    The data model specifies a YANG implementation of this framework for
    network elements.
+
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Discussion of this document takes place on the Operations and
+   Management Area Working Group mailing list (opsawg@ietf.org), which
+   is archived at https://mailarchive.ietf.org/arch/browse/opsawg/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/boucadair/draft-ietf-opsawg-discardmodel.
 
 Status of This Memo
 
