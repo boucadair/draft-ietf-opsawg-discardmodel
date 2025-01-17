@@ -215,22 +215,22 @@ discards/policy/:
 discards/error/:
 : These are unintended discards due to errors in processing packets or frames.  There are multiple sub-classes.
 
-discards/error/l2/rx/:  
+discards/error/l2/rx/:
 : These are frames discarded due to errors in the received Layer 2 frame, including: CRC errors, invalid MAC addresses, invalid VLAN tags, frame size violations and other malformed frame conditions
 
-discards/error/l3/rx/:  
+discards/error/l3/rx/:
 : These are discards which occur due to errors in the received packet, indicating an upstream problem rather than an issue with the device dropping the errored packets, including: header checksum errors,  MTU exceeded, invalid packet errors, i.e. incorrect version, incorrect header length, invalid options and other malformed packet conditions
 
-discards/error/l3/rx/ttl-expired:  
+discards/error/l3/rx/ttl-expired:
 : These are discards due to TTL (or Hop limit) expiry, which can occur for the following reasons: normal trace-route operations, end-system TTL/Hop limit set too low, routing loops in the network.
 
-discards/error/l3/no-route/:  
+discards/error/l3/no-route/:
 : These are discards which occur due to a packet not matching any route in the routing table, e.g. which may be due to routing configuration errors or may be transient discards during convergence.
 
-discards/error/local/:  
+discards/error/local/:
 : These are discards due to internal device issues, including: parity errors in device memory or other internal hardware errors.  Any errored discards not explicitly assigned to other classes are also accounted for here.
 
-discards/no-buffer/:  
+discards/no-buffer/:
 :  These are discards due to buffer exhaustion, i.e. congestion related discards. These can be tail-drop discards or due to an active queue management algorithm, such as RED {{RED93}} or CODEL {{RFC8289}}.
 
 An example of possible signal-to-mitigation action mapping is provided in {{mapping}}.
