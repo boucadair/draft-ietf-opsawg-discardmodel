@@ -199,7 +199,7 @@ The hierarchical structure allows for future extension while maintaining backwar
 The following YANG tree diagram shows the complete structure:
 
 ~~~~
-{::include-fold ../yang/ietf-packet-discard-reporting-tree.txt}
+{::include-fold ./yang/ietf-packet-discard-reporting-tree.txt}
 ~~~~
 
 The corresponding YANG module is defined in {{module-infomodel}}.
