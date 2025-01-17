@@ -6,8 +6,8 @@ date:
 category: std
 
 ipr: trust200902
-area: Operations and Management Area
-workgroup: OPSAWG
+area: ""
+workgroup: "Operations and Management Area Working Group"
 keyword:
  - Service deployment
  - Service assurance
