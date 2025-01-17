@@ -300,7 +300,7 @@ The "ietf-packet-discard-reporting" uses the "sx" structure defined in {{!RFC879
 
 ~~~~~~~~~~
 <CODE BEGINS> file "ietf-packet-discard-reporting@2024-06-04.yang"
-{::include ../yang/ietf-packet-discard-reporting.yang}
+{::include ./yang/ietf-packet-discard-reporting.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 
@@ -352,7 +352,7 @@ The "ietf-packet-discard-reporting" uses the "sx" structure defined in {{!RFC879
 
 ~~~~~~~~~~
 <CODE BEGINS> file "ietf-packet-discard-reporting@2024-06-04.yang"
-{::include ../yang/ietf-packet-discard-reporting.yang}
+{::include ./yang/ietf-packet-discard-reporting.yang}
 <CODE ENDS>
 ~~~~~~~~~~
 
