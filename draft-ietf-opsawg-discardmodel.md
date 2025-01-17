@@ -100,13 +100,6 @@ informative:
                ins: Lebsack, C.
           author:
                ins: C. Marrow
-     RFC2475:
-     RFC8289:
-     RFC6241:
-     RFC8040:
-     RFC6242:
-     RFC8446:
-     RFC8341:
 
 --- abstract
 
@@ -231,7 +224,7 @@ discards/error/local/:
 : These are discards due to internal device issues, including: parity errors in device memory or other internal hardware errors.  Any errored discards not explicitly assigned to other classes are also accounted for here.
 
 discards/no-buffer/:
-:  These are discards due to buffer exhaustion, i.e. congestion related discards. These can be tail-drop discards or due to an active queue management algorithm, such as RED {{RED93}} or CODEL {{RFC8289}}.
+:  These are discards due to buffer exhaustion, i.e. congestion related discards. These can be tail-drop discards or due to an active queue management algorithm, such as RED {{RED93}} or CODEL {{?RFC8289}}.
 
 An example of possible signal-to-mitigation action mapping is provided in {{mapping}}.
 
@@ -262,7 +255,7 @@ Requirements 1-10 relate to packets forwarded or discarded by the device, while 
 7. The aggregate Quality of Service (QoS) traffic and no buffer discard classes MUST account for all underlying packets received, transmitted, and discarded across all other classes.
 8. In addition to the Layer 2 and Layer 3 aggregate classes, an individual discarded packet MUST only account against a single error, policy, or no-buffer discard subclass.
 9. When there are multiple reasons for discarding a packet, the ordering of discard class reporting MUST be defined.
-10. If Diffserv {{RFC2475}} is not used, no-buffer discards SHOULD be reported as class0, which represents the default class.
+10. If Diffserv {{?RFC2475}} is not used, no-buffer discards SHOULD be reported as class0, which represents the default class.
 11. Traffic to the device control plane has its own class, however, traffic from the device control plane SHOULD be accounted for in the same way as other egress traffic.
 
 ## Usage Examples {#examples}
